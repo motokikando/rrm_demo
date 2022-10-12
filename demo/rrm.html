@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <script src="../jspsych/dist/jspsych.js"></script>
     <script src="../jspsych/dist/plugin-html-keyboard-response.js"></script>
+    <script src="../jspsych/dist/plugin-survey.js"></script>
     <script src="../jspsych/dist/plugin-survey-text.js"></script>
     <script src="../jspsych/dist/plugin-survey-multi-choice.js"></script>
     <script src="../jspsych/dist/plugin-survey-likert.js"></script>
@@ -30,7 +31,7 @@
     }
   })
 
-  const user_survey = { timeline: [user_info, gender] }
+  const user_survey = { timeline: [survey] }
   const stimuli = ['happy', 'sad', 'positive', 'negative']
   const E = ['話し好き', '無口な', '陽気な', '外向的', '暗い', '無愛想な', '社交的', '人嫌い', '活動的な', '意思表示しない', '積極的な', '地味な']
   const N = ['悩みがち', '不安になりやすい', '心配性', '気苦労の多い', '弱気になる', '傷つきやすい', '動揺しやすい', '神経質な', 'くよくよしない', '悲観的な', '緊張しやすい', '憂鬱な']
