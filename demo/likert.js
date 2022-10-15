@@ -1,4 +1,4 @@
-const likert_scale = ['1 全くあてはまらない', '2', '3', '4', '5', '6', '7 非常にあてはまる']
+const likert_scale = ['1 <br>全くあてはまらない', '2 <br>ほとんどあてはまらない', '3 <br>あまりあてはまらない', '4<br>どちらともいえない', '5 <br>ややあてはまる', '6<br>かなりあてはまる', '7 <br>非常によくあてはまる']
 
 const likert_instruction = {
   type: jsPsychInstructions,
