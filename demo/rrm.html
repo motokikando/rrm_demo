@@ -43,10 +43,10 @@
   const blocks = E.map((stim) => createTrial(stim))
   const pre_trial = { timeline: jsPsych.randomization.repeat(pre_blocks, 2)}
   const main_trial = { timeline: jsPsych.randomization.repeat(blocks, 1)}
-  const rrmPractice = { timeline: [pre_instruction1 , pre_instruction2,  pre_trial]}
-  const rrmFaker = { timeline: [fake_instruction1, fake_instruction2, main_trial]}
-  const rrmHonest = { timeline: [honest_instruction1, honest_instruction2, main_trial]}
-
-  jsPsych.run([consent, user_survey, likert, rrmPractice, rrmFaker, rrmHonest]) // 提示順序の指定
+  const practiceRRM = { timeline: [pre_instruction1 , pre_instruction2,  pre_trial]}
+  const fakeRRM = { timeline: [fake_instruction1, fake_instruction2, main_trial]}
+  const honestRRM = { timeline: [honest_instruction1, honest_instruction2, main_trial]}
+  const mainRRM = {timeline: jsPsych.randomization.shuffle([honestRRM, fakeRRM])}
+  jsPsych.run([consent, user_survey, likert, practiceRRM, mainRRM]) // 提示順序の指定
 </script>
 </html>
