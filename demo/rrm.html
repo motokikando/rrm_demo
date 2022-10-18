@@ -48,11 +48,11 @@
   const c_blocks = C.map((stim) => createTrial(stim))
   const a_blocks = A.map((stim) => createTrial(stim))
 
-  const e_trials = { timeline: jsPsych.randomization.sampleWithReplacement(e_blocks, 20)}
-  const n_trials = { timeline: jsPsych.randomization.sampleWithReplacement(n_blocks, 20)}
-  const o_trials = { timeline: jsPsych.randomization.sampleWithReplacement(o_blocks, 20)}
-  const c_trials = { timeline: jsPsych.randomization.sampleWithReplacement(c_blocks, 20)}
-  const a_trials = { timeline: jsPsych.randomization.sampleWithReplacement(a_blocks, 20)}
+  const e_trials = { timeline: jsPsych.randomization.shuffle(e_blocks) }
+  const n_trials = { timeline: jsPsych.randomization.shuffle(n_blocks) }
+  const o_trials = { timeline: jsPsych.randomization.shuffle(o_blocks) }
+  const c_trials = { timeline: jsPsych.randomization.shuffle(c_blocks) }
+  const a_trials = { timeline: jsPsych.randomization.shuffle(a_blocks) }
 
   const pre_trial = { timeline: jsPsych.randomization.sampleWithReplacement(pre_blocks, 10)}
   const main_trial = { timeline: [createInstruction(1), e_trials, createInstruction(2),n_trials, createInstruction(3), o_trials, createInstruction(4), c_trials, createInstruction(5), a_trials]}
