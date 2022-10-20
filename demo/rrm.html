@@ -42,7 +42,7 @@
   const A = ['温和な', '短期', '怒りっぽい', '寛大な', '親切な', '良心的な', '協力的な', 'とげがある', 'かんしゃくもち', '自己中心的', '素直な', '反抗的']
 
   const user_survey = { timeline: [survey] }
-  const likert = {timeline: [likert_instruction, likert1]}
+  const likert = {timeline: [likert_instruction1, big5_likert, likert_instruction2, bidr_likert]}
   const pre_blocks = stimuli.map((stim) => createTrial(stim))
   const e_blocks = E.map((stim) => createTrial(stim))
   const n_blocks = N.map((stim) => createTrial(stim))
@@ -63,6 +63,6 @@
   const honestRRM = { timeline: [honest_instruction1, main_trial]}
   const mainRRM = {timeline: jsPsych.randomization.shuffle([honestRRM, fakeRRM])}
 
-  jsPsych.run([big5_likert, consent, user_survey, likert, practiceRRM, mainRRM]) // 提示順序の指定
+  jsPsych.run([likert, consent, user_survey, likert, practiceRRM, mainRRM]) // 提示順序の指定
 </script>
 </html>
