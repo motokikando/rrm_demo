@@ -67,6 +67,6 @@
   const honestRRM = { timeline: [honest_instruction1, main_trial]}
   const mainRRM = {timeline: jsPsych.randomization.shuffle([honestRRM, fakeRRM])}
 
-  jsPsych.run([mainRRM, consent, user_survey, likert, practiceRRM, mainRRM]) // 提示順序の指定
+  jsPsych.run([consent, user_survey, likert, practiceRRM, mainRRM]) // 提示順序の指定
 </script>
 </html>
