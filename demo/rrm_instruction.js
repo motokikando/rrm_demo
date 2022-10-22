@@ -12,11 +12,11 @@ const createTrial = (stim) => {
 const createInstruction = (num) => {
   const instruction = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus:  `これより本番ブロック ${num}を開始します。` +
+    stimulus:  `<div class="bold">これより本番ブロック ${num}を開始します。` +
     '<br>もし自分にあてはまるなら「i」キーを' +
     '自分に当てはまらない場合は「e」キーを' +
     'なるべく早く，正確に押してください' +
-    '<br>準備ができたらスペースキーを押して課題を開始してください。',
+    '<br>準備ができたらスペースキーを押して課題を開始してください。</div>',
     choices: [' '],
     data: { task: 'instruction' },
   };
@@ -38,11 +38,11 @@ const pre_instruction1 = {
 
   const pre_instruction2 = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: 'これより練習ブロックを開始します。<br>' +
-    'もし自分にあてはまるなら「i」キーを<br>' +
+    stimulus: '<div class="bold">これより練習ブロックを開始します。<br>' +
+    '<div class="bold">もし自分にあてはまるなら「i」キーを<br>' +
     '自分に当てはまらない場合は「e」キーを<br>' +
-    'なるべく早く，正確に押してください<br><br>' +
-    '準備ができたらスペースキーを押して課題を開始してください。',
+    'なるべく早く，正確に押してください<br></div>' +
+    '準備ができたらスペースキーを押して課題を開始してください。</div>',
     choices: [' '],
     data: { task: 'instruction' },
   };
@@ -52,8 +52,8 @@ const pre_instruction1 = {
     type: jsPsychInstructions,
     pages: [
       'これより本番ブロック1を始めます。ただし、次の提示を想定しながら回答をしてください。',
-      '<p>1.自分が入社したいと思う理想的な企業を思い浮かべてください</p> <p>*上記を想定することができたら「次へ」を押してください</p> ',
-      '<p>2.これから、その第一志望の企業の適性検査に参加することを想定してください。</p> <p>*上記を想定することができたら「次へ進む」を押してください</p> ',
+      '<p><div class="bold">1.自分が入社したいと思う理想的な企業を思い浮かべてください</div></p> <p>*上記を想定することができたら「次へ」を押してください</p> ',
+      '<div class="bold">2.これから、その第一志望の企業の適性検査に参加することを想定してください。</div> <p>*上記を想定することができたら「次へ進む」を押してください</p> ',
       '<p>注意事項 </p> <p>速く反応ができるようにするために、「e」と「i」のキーの上に予め人差し指を置いて下さい。</p> <p>反応が遅すぎる場合には、テストの結果を示すことができません。正確に回答することに努めながらも、できるだけ速く反応するようにして下さい。</p>'
     ],
     show_clickable_nav: true,
@@ -63,11 +63,11 @@ const pre_instruction1 = {
 
   const fake_instruction2 = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus:  'これより本番ブロックAを開始します。<br>' +
+    stimulus:  '<div class="bold">これより本番ブロックを開始します。<br>' +
     'もし自分にあてはまるなら「i」キーを<br>' +
     '自分に当てはまらない場合は「e」キーを<br>' +
-    'なるべく早く，正確に押してください<br><br>' +
-    '準備ができたらスペースキーを押して課題を開始してください。',
+    'なるべく早く，正確に押してください<br>' +
+    '準備ができたらスペースキーを押して課題を開始してください。</div>',
     choices: [' '],
     data: { task: 'instruction' },
   };
@@ -77,7 +77,7 @@ const pre_instruction1 = {
     type: jsPsychInstructions,
     pages: [
       'これより本番ブロックBを始めます。ただし、次の提示を想定しながら回答をしてください。',
-      '<p>できるだけ今の自分に正直に回答してください。</p> <p>*上記を想定することができたら「次へ」を押してください</p> ',
+      '<div class="bold">できるだけ今の自分に正直に回答してください。</div> <p>*上記を想定することができたら「次へ」を押してください</p> ',
       '<p>注意事項 </p> <p>速く反応ができるようにするために、「e」と「i」のキーの上に予め人差し指を置いて下さい。</p> <p>反応が遅すぎる場合には、テストの結果を示すことができません。正確に回答することに努めながらも、できるだけ速く反応するようにして下さい。</p>'
     ],
     show_clickable_nav: true,
@@ -87,11 +87,11 @@ const pre_instruction1 = {
 
   const honest_instruction2 = {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus:  'これより本番ブロックを開始します。' +
+    stimulus:  '<div class="bold">これより本番ブロックを開始します。' +
     'もし自分にあてはまるなら「i」キーを' +
     '自分に当てはまらない場合は「e」キーを' +
     'なるべく早く，正確に押してください' +
-    '準備ができたらスペースキーを押して課題を開始してください。',
+    '準備ができたらスペースキー</div>を押して課題を開始してください。</div>',
     choices: [' '],
     data: { task: 'instruction' },
   };

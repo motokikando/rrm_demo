@@ -21,6 +21,10 @@
       p {
         font-size: 20px;
       }
+      .bold {
+        font-weight: bold;
+        font-size: 20px;
+      }
 
     </style>
     <title>RRMdemo</title>
@@ -63,6 +67,6 @@
   const honestRRM = { timeline: [honest_instruction1, main_trial]}
   const mainRRM = {timeline: jsPsych.randomization.shuffle([honestRRM, fakeRRM])}
 
-  jsPsych.run([likert, consent, user_survey, likert, practiceRRM, mainRRM]) // 提示順序の指定
+  jsPsych.run([mainRRM, consent, user_survey, likert, practiceRRM, mainRRM]) // 提示順序の指定
 </script>
 </html>
