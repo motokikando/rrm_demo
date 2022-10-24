@@ -44,7 +44,7 @@ const likert_scale2 = ['1 <br>全くそうではない', '2 <br>そうでない'
 const likert_instruction1 = {
   type: jsPsychInstructions,
   pages: [
-    '<div style="font-size: 20px"><p>これから質問紙調査を行います。</p> <p>1(全くあてはまらない)〜 5 (非常にそうだ)の中から最も近いもの選択してください。</p> <p>質問項目は全部で12項目(5セット)となります。</p><p>準備ができたら次に進んで、回答を開始してください。</p></div>',
+    '<div style="font-size: 20px"><p>これから質問紙調査を行います。</p> <p>1(全くあてはまらない)〜 5 (非常にそうだ)の中から最も近いもの選択してください。</p> <p>質問項目は全部で60項目となります。</p><p>準備ができたら次に進んで、回答を開始してください。</p></div>',
   ],
   show_clickable_nav: true,
   button_label_previous: '戻る',
