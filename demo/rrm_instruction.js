@@ -4,7 +4,7 @@ const createTrial = (stim) => {
       stimulus: `<p style="font-size: 70px"> ${stim}</p>`,
       choices: ['e', 'i'],
       post_trial_gap: 100,
-      prompt: "<div style='display:flex;' ><div style='margin: 0 100px 0 100px; padding: 50px; background-color: #b4b4e3; border-radius: 20px;'>自分に当てはまらない<br><p>eキー</p></div><div style='margin: 0 120px 0 100px; padding: 50px; background-color: #57e815; border-radius: 20px;'>自分に当てはまる<br><p>iキー</p></div></div>"
+      prompt: "<div style='display:flex;' ><div class='choice1'>自分に当てはまらない<br><p>eキー</p></div><div class='choice2'>自分に当てはまる<br><p>iキー</p></div></div>"
   };
     return trial;
   };
