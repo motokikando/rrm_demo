@@ -33,7 +33,8 @@ const pre_instruction1 = {
     ],
     show_clickable_nav: true,
     button_label_previous: '戻る',
-    button_label_next: '次へ'
+    button_label_next: '次へ',
+    show_page_number: true
   }
 
   const pre_instruction2 = {
@@ -47,18 +48,18 @@ const pre_instruction1 = {
     data: { task: 'instruction' },
   };
 
-
   const fake_instruction1 = {
     type: jsPsychInstructions,
     pages: [
-      'これより本番ブロック1を始めます。ただし、次の提示を想定しながら回答をしてください。',
+      'これより本番ブロックAを始めます。ただし、次の提示を想定しながら回答をしてください。',
       '<p><div class="bold">1.自分が入社したいと思う理想的な企業を思い浮かべてください</div></p> <p>*上記を想定することができたら「次へ」を押してください</p> ',
       '<div class="bold">2.これから、その第一志望の企業の適性検査に参加することを想定してください。</div> <p>*上記を想定することができたら「次へ進む」を押してください</p> ',
       '<p>注意事項 </p> <p>速く反応ができるようにするために、「e」と「i」のキーの上に予め人差し指を置いて下さい。</p> <p>反応が遅すぎる場合には、テストの結果を示すことができません。正確に回答することに努めながらも、できるだけ速く反応するようにして下さい。</p>'
     ],
     show_clickable_nav: true,
     button_label_previous: '戻る',
-    button_label_next: '次へ'
+    button_label_next: '次へ',
+    show_page_number: true
   };
 
   const fake_instruction2 = {
@@ -72,7 +73,6 @@ const pre_instruction1 = {
     data: { task: 'instruction' },
   };
 
-
   const honest_instruction1 = {
     type: jsPsychInstructions,
     pages: [
@@ -82,7 +82,8 @@ const pre_instruction1 = {
     ],
     show_clickable_nav: true,
     button_label_previous: '戻る',
-    button_label_next: '次へ'
+    button_label_next: '次へ',
+    show_page_number: true
   };
 
   const honest_instruction2 = {
