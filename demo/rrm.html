@@ -76,7 +76,7 @@
   const c_trials = { timeline: jsPsych.randomization.shuffle(c_blocks) }
   const a_trials = { timeline: jsPsych.randomization.shuffle(a_blocks) }
 
-  const pre_trial = { timeline: jsPsych.randomization.sampleWithReplacement(pre_blocks, 10)}
+  const pre_trial = { timeline: jsPsych.randomization.shuffle(pre_blocks)}
   const main_trial = { timeline: [createInstruction(1), e_trials, createInstruction(2),n_trials, createInstruction(3), o_trials, createInstruction(4), c_trials, createInstruction(5), a_trials]}
   const practiceRRM = { timeline: [pre_instruction1 , pre_instruction2,  pre_trial]}
   const fakeRRM = { timeline: [fake_instruction1, main_trial]}
