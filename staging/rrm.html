@@ -12,9 +12,6 @@
     <script src="../jspsych/dist/plugin-instructions.js"></script>
     <script src="../jspsych/dist/plugin-fullscreen.js"></script>
     <script src="../jspsych/dist/plugin-html-button-response.js"></script>
-    <script src="./likert.js"></script>
-    <script src="./rrm_instruction.js"></script>
-    <script src="./user_info.js"></script>
     <script src="./consent.js"></script>
     <link rel="stylesheet" href="../jspsych/dist/jspsych.css" />
     <link rel="stylesheet" href="./index.css" />
@@ -28,7 +25,7 @@
   <script>
     const jsPsych = initJsPsych({
       on_finish: () => {
-        jsPsych.data.desplayData();
+        jsPsych.data.displayData();
         const result = jsPsych.data.get();
         result.localSave('csv', 'data.csv');
         jsPsych.result.get().localSave('csv', 'data.csv');
@@ -65,6 +62,7 @@
             prompt: "年齢を入力してください",
             name: "age",
             required: true,
+
           },
           {
             type: "multi-choice",
@@ -77,6 +75,9 @@
       ],
       title: "下記の項目に回答してください。",
       button_label_finish: "次へ",
+      on_finish: (data) => {
+              jsPsych.data.get().addToLast(data.response);
+      }
     };
 
     const createLikert1 = (question, name, q_type) => {
@@ -188,7 +189,10 @@
   ],
   button_label_next: '次へ',
   button_label_back: '戻る',
-  button_label_finish: '終了'
+  button_label_finish: '終了',
+  on_finish: (data) => {
+      jsPsych.data.get().addToLast(data.response);
+  }
 }
 
 
@@ -269,20 +273,24 @@ const big5_likert = {
   button_label_next: '次へ',
   button_label_back: '戻る',
   button_label_finish: '終了',
-  randomize_statement_order: true
+  randomize_statement_order: true,
+  on_finish: (data) => {
+      jsPsych.data.get().addToLast(data.response);
+  }
 }
 
-    const createTrial = (stim) => {
-      const trial = {
-        type: jsPsychHtmlKeyboardResponse,
-        stimulus: `<p style="font-size: 70px"> ${stim}</p>`,
-        choices: ["e", "i"],
-        post_trial_gap: 100,
-        prompt:
-          "<div style='display:flex;' ><div class='choice1'>自分に当てはまらない<br><p>eキー</p></div><div class='choice2'>自分に当てはまる<br><p>iキー</p></div></div>",
-      };
-      return trial;
-    };
+const createTrial = (stim, block) => {
+  const trial = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `<p style="font-size: 70px"> ${stim}</p>`,
+    choices: ["e", "i"],
+    post_trial_gap: 100,
+    prompt: "<div style='display:flex;' ><div class='choice1'>自分に当てはまらない<br><p>eキー</p></div><div class='choice2'>自分に当てはまる<br><p>iキー</p></div></div>",
+    data: { blocks: block }
+  };
+
+  return trial;
+};
 
 const createInstruction = (num) => {
   const instruction = {
@@ -303,8 +311,8 @@ const createInstruction = (num) => {
       type: jsPsychInstructions,
       pages: [
         "次の課題では以下に示すようにある形容詞が提示され、それが自身に当てはまるかどうか分類することが求められます。",
-        '下記の例のようにもし自身に当てはまるなら「i」キー (自分に当てはまる)をもし当てはまらないなら「e」キー(自分に当てはまらない)を押してください。<br><img src="rrm_example1.png" width="500px" height="250px">',
-        "<p>注意事項 </p> <p>速く反応ができるようにするために、「e」と「i」のキーの上に予め人差し指を置いて下さい。</p> <p>反応が遅すぎる場合には、テストの結果を示すことができません。正確に回答することに努めながらも、できるだけ速く反応するようにして下さい。</p> <p>ブロックは全部で５つあります。</p>",
+        '下記の例のようにもし自身に当てはまるなら「i」キー (自分に当てはまる)を<br>もし当てはまらないなら「e」キー(自分に当てはまらない)を押してください。<br><img src="rrm_example1.png" width="500px" height="250px">',
+        "<p>注意事項 </p> <p>速く反応ができるようにするために、「e」と「i」のキーの上に予め人差し指を置いて下さい。</p> <p>反応が遅すぎる場合には、テストの結果を示すことができません。<br> 正確に回答することに努めながらも、できるだけ速く反応するようにして下さい。</p> <p>ブロックは全部で５つあります。</p>",
       ],
       show_clickable_nav: true,
       button_label_previous: "戻る",
@@ -384,26 +392,28 @@ const createInstruction = (num) => {
 
   const user_survey = { timeline: [survey] }
   const likert = {timeline: [likert_instruction1, big5_likert, likert_instruction2, bidr_likert]}
-  const pre_blocks = stimuli.map((stim) => createTrial(stim))
-  const e_blocks = E.map((stim) => createTrial(stim))
-  const n_blocks = N.map((stim) => createTrial(stim))
-  const o_blocks = O.map((stim) => createTrial(stim))
-  const c_blocks = C.map((stim) => createTrial(stim))
-  const a_blocks = A.map((stim) => createTrial(stim))
 
-    const e_trials = { timeline: jsPsych.randomization.shuffle(e_blocks) };
-    const n_trials = { timeline: jsPsych.randomization.shuffle(n_blocks) };
-    const o_trials = { timeline: jsPsych.randomization.shuffle(o_blocks) };
-    const c_trials = { timeline: jsPsych.randomization.shuffle(c_blocks) };
-    const a_trials = { timeline: jsPsych.randomization.shuffle(a_blocks) };
+  const e_trials1 = { timeline: jsPsych.randomization.shuffle(E.map((stim) => createTrial(stim, 'honest_E'))) };
+  const n_trials1 = { timeline: jsPsych.randomization.shuffle(N.map((stim) => createTrial(stim, 'honest_N'))) };
+  const o_trials1 = { timeline: jsPsych.randomization.shuffle(O.map((stim) => createTrial(stim, 'honest_O'))) };
+  const c_trials1 = { timeline: jsPsych.randomization.shuffle(C.map((stim) => createTrial(stim, 'honest_C'))) };
+  const a_trials1 = { timeline: jsPsych.randomization.shuffle(A.map((stim) => createTrial(stim, 'honest_A'))) };
 
-  const pre_trial = { timeline: jsPsych.randomization.shuffle(pre_blocks)}
-  const main_trial = { timeline: [createInstruction(1), e_trials, createInstruction(2),n_trials, createInstruction(3), o_trials, createInstruction(4), c_trials, createInstruction(5), a_trials]}
+  const e_trials2 = { timeline: jsPsych.randomization.shuffle(E.map((stim) => createTrial(stim, 'fake_E'))) };
+  const n_trials2 = { timeline: jsPsych.randomization.shuffle(N.map((stim) => createTrial(stim, 'fake_N'))) };
+  const o_trials2 = { timeline: jsPsych.randomization.shuffle(O.map((stim) => createTrial(stim, 'fake_O'))) };
+  const c_trials2 = { timeline: jsPsych.randomization.shuffle(C.map((stim) => createTrial(stim, 'fake_C'))) };
+  const a_trials2 = { timeline: jsPsych.randomization.shuffle(A.map((stim) => createTrial(stim, 'fake_A'))) };
+
+  const pre_trial = { timeline: jsPsych.randomization.shuffle(stimuli.map((stim) => createTrial(stim, 'T')))}
+  const honest_blocks = { timeline: [createInstruction(1), e_trials1, createInstruction(2), n_trials1, createInstruction(3), o_trials1, createInstruction(4), c_trials1, createInstruction(5), a_trials1]}
+  const fake_blocks = { timeline: [createInstruction(1), e_trials2, createInstruction(2), n_trials2, createInstruction(3), o_trials2, createInstruction(4), c_trials2, createInstruction(5), a_trials2]}
   const practiceRRM = { timeline: [pre_instruction1 , pre_instruction2,  pre_trial]}
-  const fakeRRM = { timeline: [fake_instruction1, main_trial]}
-  const honestRRM = { timeline: [honest_instruction1, main_trial]}
+  const fakeRRM = { timeline: [fake_instruction1, honest_blocks]}
+  const honestRRM = { timeline: [honest_instruction1, fake_blocks]}
   const mainRRM = {timeline: jsPsych.randomization.shuffle([honestRRM, fakeRRM])}
 
   jsPsych.run([enter_fullscreen, consent, user_survey, likert, practiceRRM, mainRRM, finish_page, exit_fullscreen]) // 提示順序の指定
+  // jsPsych.run([practiceRRM, mainRRM]) // 提示順序の指定
 </script>
 </html>
