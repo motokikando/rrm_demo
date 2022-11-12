@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <script src="../jspsych/dist/jspsych.js"></script>
     <script src="../jspsych/dist/plugin-html-keyboard-response.js"></script>
     <script src="../jspsych/dist/plugin-survey.js"></script>
@@ -23,124 +23,141 @@
 
 
     <title>RRMdemo</title>
-</head>
-<body>
-</body>
-<script>
-  const jsPsych = initJsPsych({
-    on_finish: () => {
-        jsPsych.data.displayData();
-    }
-  })
-
-  const enter_fullscreen =  {
-  type: jsPsychFullscreen,
-  message: 'これより実験を開始します。<br>準備ができたら「開始」ボタンを押して先に進んでください。<br>*「次へ」ボタンを押すと, 画面がフルスクリーンモードに切り替わります。<br>',
-  fullscreen_mode: true,
-  button_label: '開始'
-}
-
-const exit_fullscreen =  {
-  type: jsPsychFullscreen,
-  fullscreen_mode: false,
-  delay_after: 0
-}
-
-const finish_page = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: '実験のご協力誠にありがとうございました。<br>*「終了」ボタンを押して, フルスクリーンを終了させてください。<br>',
-  choices: ['終了']
-}
-
-  const survey = {
-  type: jsPsychSurvey,
-  pages: [
-      [
-      {
-        type: 'text',
-        prompt: '年齢を入力してください',
-        name: 'age',
-        required: true
+  </head>
+  <body></body>
+  <script>
+    const jsPsych = initJsPsych({
+      on_finish: () => {
+        jsPsych.data.desplayData();
+        const result = jsPsych.data.get();
+        result.localSave('csv', 'data.csv');
+        jsPsych.result.get().localSave('csv', 'data.csv');
       },
-      {
-        type: 'multi-choice',
-        prompt: '性別を選択してください',
-        options: ['男性', '女性', 'その他'],
-        name: 'sex',
-        required: true
-      },
-    ],
-  ],
-  title: '下記の項目に回答してください。',
-  button_label_finish: '次へ',
-};
+    });
 
-const createLikert1 = (question, name, q_type) => {
-  const likert = {
-      type: 'likert',
-      prompt: question,
-      likert_scale_min_label: '全く当てはまらない',
-      likert_scale_max_label: '非常に当てはまる',
-      likert_scale_values: [
-        {value: 1},
-        {value: 2},
-        {value: 3},
-        {value: 4},
-        {value: 5},
-        {value: 6},
-        {value: 7},
+    const enter_fullscreen = {
+      type: jsPsychFullscreen,
+      message:
+        "これより実験を開始します。<br>準備ができたら「開始」ボタンを押して先に進んでください。<br>*「次へ」ボタンを押すと, 画面がフルスクリーンモードに切り替わります。<br>",
+      fullscreen_mode: true,
+      button_label: "開始",
+    };
+
+    const exit_fullscreen = {
+      type: jsPsychFullscreen,
+      fullscreen_mode: false,
+      delay_after: 0,
+    };
+
+    const finish_page = {
+      type: jsPsychHtmlButtonResponse,
+      stimulus:
+        "実験のご協力誠にありがとうございました。<br>*「終了」ボタンを押して, フルスクリーンを終了させてください。<br>",
+      choices: ["終了"],
+    };
+
+    const survey = {
+      type: jsPsychSurvey,
+      pages: [
+        [
+          {
+            type: "text",
+            prompt: "年齢を入力してください",
+            name: "age",
+            required: true,
+          },
+          {
+            type: "multi-choice",
+            prompt: "性別を選択してください",
+            options: ["男性", "女性", "その他"],
+            name: "sex",
+            required: true,
+          },
+        ],
       ],
-      name: name,
-      q_type: q_type
-  };
-  return likert;
-}
-const createLikert2 = (question, name, q_type) => {
-  const likert = {
-      type: 'likert',
-      prompt: question,
-      likert_scale_min_label: '全くそうではない',
-      likert_scale_max_label: '非常にそうだ',
-      likert_scale_values: [
-        {value: 1},
-        {value: 2},
-        {value: 3},
-        {value: 4},
-        {value: 5}
+      title: "下記の項目に回答してください。",
+      button_label_finish: "次へ",
+    };
+
+    const createLikert1 = (question, name, q_type) => {
+      const likert = {
+        type: "likert",
+        prompt: question,
+        likert_scale_min_label: "全く当てはまらない",
+        likert_scale_max_label: "非常に当てはまる",
+        likert_scale_values: [
+          { value: 1 },
+          { value: 2 },
+          { value: 3 },
+          { value: 4 },
+          { value: 5 },
+          { value: 6 },
+          { value: 7 },
+        ],
+        name: name,
+        q_type: q_type,
+      };
+      return likert;
+    };
+    const createLikert2 = (question, name, q_type) => {
+      const likert = {
+        type: "likert",
+        prompt: question,
+        likert_scale_min_label: "全くそうではない",
+        likert_scale_max_label: "非常にそうだ",
+        likert_scale_values: [
+          { value: 1 },
+          { value: 2 },
+          { value: 3 },
+          { value: 4 },
+          { value: 5 },
+        ],
+        name: name,
+        q_type: q_type,
+      };
+      return likert;
+    };
+
+    const likert_scale1 = [
+      "1 <br>全くあてはまらない",
+      "2 <br>ほとんどあてはまらない",
+      "3 <br>あまりあてはまらない",
+      "4<br>どちらともいえない",
+      "5 <br>ややあてはまる",
+      "6<br>かなりあてはまる",
+      "7 <br>非常によくあてはまる",
+    ];
+    const likert_scale2 = [
+      "1 <br>全くそうではない",
+      "2 <br>そうでない",
+      "3 <br>どちらでもない",
+      "4<br>そうだ",
+      "5 <br>非常にそうだ",
+    ];
+
+    const likert_instruction1 = {
+      type: jsPsychInstructions,
+      pages: [
+        '<div style="font-size: 20px"><p>これから質問紙調査を行います。</p> <p>1(全くあてはまらない)〜 5 (非常にそうだ)の中から最も近いもの選択してください。</p> <p>質問項目は全部で60項目となります。</p><p>準備ができたら次に進んで、回答を開始してください。</p></div>',
       ],
-      name: name,
-      q_type: q_type
-  };
-  return likert;
-};
+      show_clickable_nav: true,
+      button_label_previous: "戻る",
+      button_label_next: "次へ",
+    };
+    const likert_instruction2 = {
+      type: jsPsychInstructions,
+      pages: [
+        '<div style="font-size: 20px"><p>これから質問紙調査を行います。</p> <p>1(全くあてはまらない)〜 7 (非常によく当てはまる)の中から最も近いもの選択してください。</p> <p>質問項目は全部で24項目です。</p><p>準備ができたら次に進んで、回答を開始してください。</p></div>',
+      ],
+      show_clickable_nav: true,
+      button_label_previous: "戻る",
+      button_label_next: "次へ",
+    };
 
-
-const likert_scale1 = ['1 <br>全くあてはまらない', '2 <br>ほとんどあてはまらない', '3 <br>あまりあてはまらない', '4<br>どちらともいえない', '5 <br>ややあてはまる', '6<br>かなりあてはまる', '7 <br>非常によくあてはまる']
-const likert_scale2 = ['1 <br>全くそうではない', '2 <br>そうでない', '3 <br>どちらでもない', '4<br>そうだ', '5 <br>非常にそうだ']
-
-const likert_instruction1 = {
-  type: jsPsychInstructions,
-  pages: [
-    '<div style="font-size: 20px"><p>これから質問紙調査を行います。</p> <p>1(全くあてはまらない)〜 5 (非常にそうだ)の中から最も近いもの選択してください。</p> <p>質問項目は全部で60項目となります。</p><p>準備ができたら次に進んで、回答を開始してください。</p></div>',
-  ],
-  show_clickable_nav: true,
-  button_label_previous: '戻る',
-  button_label_next: '次へ'
-}
-const likert_instruction2 = {
-  type: jsPsychInstructions,
-  pages: [
-    '<div style="font-size: 20px"><p>これから質問紙調査を行います。</p> <p>1(全くあてはまらない)〜 7 (非常によく当てはまる)の中から最も近いもの選択してください。</p> <p>質問項目は全部で24項目です。</p><p>準備ができたら次に進んで、回答を開始してください。</p></div>',
-  ],
-  show_clickable_nav: true,
-  button_label_previous: '戻る',
-  button_label_next: '次へ'
-}
-
-const bidr_likert = {
-  type: jsPsychSurvey,
-  pages: [
-    [
+    const bidr_likert = {
+      type: jsPsychSurvey,
+      pages: [
+        [
       createLikert1('1. 私は自分で決めたことを後悔しない。', 's1', 'N'),
       createLikert1('2. 他人には言えないようなことをしたことがある。', 'i1', 'R'),
       createLikert1('3. 人をうまく利用したことがある。', 'i3', 'R'),
@@ -255,16 +272,17 @@ const big5_likert = {
   randomize_statement_order: true
 }
 
-const createTrial = (stim) => {
-    const trial = {
-      type: jsPsychHtmlKeyboardResponse,
-      stimulus: `<p style="font-size: 70px"> ${stim}</p>`,
-      choices: ['e', 'i'],
-      post_trial_gap: 100,
-      prompt: "<div style='display:flex;' ><div class='choice1'>自分に当てはまらない<br><p>eキー</p></div><div class='choice2'>自分に当てはまる<br><p>iキー</p></div></div>"
-  };
-    return trial;
-  };
+    const createTrial = (stim) => {
+      const trial = {
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: `<p style="font-size: 70px"> ${stim}</p>`,
+        choices: ["e", "i"],
+        post_trial_gap: 100,
+        prompt:
+          "<div style='display:flex;' ><div class='choice1'>自分に当てはまらない<br><p>eキー</p></div><div class='choice2'>自分に当てはまる<br><p>iキー</p></div></div>",
+      };
+      return trial;
+    };
 
 const createInstruction = (num) => {
   const instruction = {
@@ -278,81 +296,84 @@ const createInstruction = (num) => {
     data: { task: 'instruction' },
   };
   return instruction;
-}
+};
 
 
-const pre_instruction1 = {
-    type: jsPsychInstructions,
-    pages: [
-      '次の課題では以下に示すようにある形容詞が提示され、それが自身に当てはまるかどうか分類することが求められます。',
-      '下記の例のようにもし自身に当てはまるなら「i」キー (自分に当てはまる)をもし当てはまらないなら「e」キー(自分に当てはまらない)を押してください。<br><img src="rrm_example1.png" width="500px" height="250px">',
-      '<p>注意事項 </p> <p>速く反応ができるようにするために、「e」と「i」のキーの上に予め人差し指を置いて下さい。</p> <p>反応が遅すぎる場合には、テストの結果を示すことができません。正確に回答することに努めながらも、できるだけ速く反応するようにして下さい。</p> <p>ブロックは全部で５つあります。</p>'
-    ],
-    show_clickable_nav: true,
-    button_label_previous: '戻る',
-    button_label_next: '次へ',
-    show_page_number: true
-  }
+    const pre_instruction1 = {
+      type: jsPsychInstructions,
+      pages: [
+        "次の課題では以下に示すようにある形容詞が提示され、それが自身に当てはまるかどうか分類することが求められます。",
+        '下記の例のようにもし自身に当てはまるなら「i」キー (自分に当てはまる)をもし当てはまらないなら「e」キー(自分に当てはまらない)を押してください。<br><img src="rrm_example1.png" width="500px" height="250px">',
+        "<p>注意事項 </p> <p>速く反応ができるようにするために、「e」と「i」のキーの上に予め人差し指を置いて下さい。</p> <p>反応が遅すぎる場合には、テストの結果を示すことができません。正確に回答することに努めながらも、できるだけ速く反応するようにして下さい。</p> <p>ブロックは全部で５つあります。</p>",
+      ],
+      show_clickable_nav: true,
+      button_label_previous: "戻る",
+      button_label_next: "次へ",
+      show_page_number: true,
+    };
 
-  const pre_instruction2 = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: '<div class="bold">これより練習ブロックを開始します。<br>' +
-    '<div class="bold">もし自分にあてはまるなら「i」キーを<br>' +
-    '自分に当てはまらない場合は「e」キーを<br>' +
-    'なるべく早く，正確に押してください<br></div>' +
-    '準備ができたらスペースキーを押して課題を開始してください。</div>',
-    choices: [' '],
-    data: { task: 'instruction' },
-  };
+    const pre_instruction2 = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus:
+        '<div class="bold">これより練習ブロックを開始します。<br>' +
+        '<div class="bold">もし自分にあてはまるなら「i」キーを<br>' +
+        "自分に当てはまらない場合は「e」キーを<br>" +
+        "なるべく早く，正確に押してください<br></div>" +
+        "準備ができたらスペースキーを押して課題を開始してください。</div>",
+      choices: [" "],
+      data: { task: "instruction" },
+    };
 
-  const fake_instruction1 = {
-    type: jsPsychInstructions,
-    pages: [
-      'これより本番ブロックAを始めます。ただし、次の提示を想定しながら回答をしてください。',
-      '<p><div class="bold">1.自分が入社したいと思う理想的な企業を思い浮かべてください</div></p> <p>*上記を想定することができたら「次へ」を押してください</p> ',
-      '<div class="bold">2.これから、先ほどイメージした理想的な企業の適性検査に参加することを想定してください。</div> <p>*上記を想定することができたら「次へ進む」を押してください</p> ',
-      '<p>注意事項 </p> <p>速く反応ができるようにするために、「e」と「i」のキーの上に予め人差し指を置いて下さい。</p> <p>反応が遅すぎる場合には、テストの結果を示すことができません。正確に回答することに努めながらも、できるだけ速く反応するようにして下さい。</p>'
-    ],
-    show_clickable_nav: true,
-    button_label_previous: '戻る',
-    button_label_next: '次へ',
-    show_page_number: true
-  };
+    const fake_instruction1 = {
+      type: jsPsychInstructions,
+      pages: [
+        "これより本番ブロックAを始めます。ただし、次の提示を想定しながら回答をしてください。",
+        '<p><div class="bold">1.自分が入社したいと思う理想的な企業を思い浮かべてください</div></p> <p>*上記を想定することができたら「次へ」を押してください</p> ',
+        '<div class="bold">2.これから、先ほどイメージした理想的な企業の適性検査に参加することを想定してください。</div> <p>*上記を想定することができたら「次へ進む」を押してください</p> ',
+        "<p>注意事項 </p> <p>速く反応ができるようにするために、「e」と「i」のキーの上に予め人差し指を置いて下さい。</p> <p>反応が遅すぎる場合には、テストの結果を示すことができません。正確に回答することに努めながらも、できるだけ速く反応するようにして下さい。</p>",
+      ],
+      show_clickable_nav: true,
+      button_label_previous: "戻る",
+      button_label_next: "次へ",
+      show_page_number: true,
+    };
 
-  const fake_instruction2 = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus:  '<div class="bold">これより本番ブロックを開始します。<br>' +
-    'もし自分にあてはまるなら「i」キーを<br>' +
-    '自分に当てはまらない場合は「e」キーを<br>' +
-    'なるべく早く，正確に押してください<br>' +
-    '準備ができたらスペースキーを押して課題を開始してください。</div>',
-    choices: [' '],
-    data: { task: 'instruction' },
-  };
+    const fake_instruction2 = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus:
+        '<div class="bold">これより本番ブロックを開始します。<br>' +
+        "もし自分にあてはまるなら「i」キーを<br>" +
+        "自分に当てはまらない場合は「e」キーを<br>" +
+        "なるべく早く，正確に押してください<br>" +
+        "準備ができたらスペースキーを押して課題を開始してください。</div>",
+      choices: [" "],
+      data: { task: "instruction" },
+    };
 
-  const honest_instruction1 = {
-    type: jsPsychInstructions,
-    pages: [
-      'これより本番ブロックBを始めます。ただし、次の提示を想定しながら回答をしてください。',
-      '<div class="bold">できるだけ今の自分に正直に回答してください。</div> <p>*上記を想定することができたら「次へ」を押してください</p> ',
-      '<p>注意事項 </p> <p>速く反応ができるようにするために、「e」と「i」のキーの上に予め人差し指を置いて下さい。</p> <p>反応が遅すぎる場合には、テストの結果を示すことができません。正確に回答することに努めながらも、できるだけ速く反応するようにして下さい。</p>'
-    ],
-    show_clickable_nav: true,
-    button_label_previous: '戻る',
-    button_label_next: '次へ',
-    show_page_number: true
-  };
+    const honest_instruction1 = {
+      type: jsPsychInstructions,
+      pages: [
+        "これより本番ブロックBを始めます。ただし、次の提示を想定しながら回答をしてください。",
+        '<div class="bold">できるだけ今の自分に正直に回答してください。</div> <p>*上記を想定することができたら「次へ」を押してください</p> ',
+        "<p>注意事項 </p> <p>速く反応ができるようにするために、「e」と「i」のキーの上に予め人差し指を置いて下さい。</p> <p>反応が遅すぎる場合には、テストの結果を示すことができません。正確に回答することに努めながらも、できるだけ速く反応するようにして下さい。</p>",
+      ],
+      show_clickable_nav: true,
+      button_label_previous: "戻る",
+      button_label_next: "次へ",
+      show_page_number: true,
+    };
 
-  const honest_instruction2 = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus:  '<div class="bold">これより本番ブロックを開始します。' +
-    'もし自分にあてはまるなら「i」キーを' +
-    '自分に当てはまらない場合は「e」キーを' +
-    'なるべく早く，正確に押してください' +
-    '準備ができたらスペースキー</div>を押して課題を開始してください。</div>',
-    choices: [' '],
-    data: { task: 'instruction' },
-  };
+    const honest_instruction2 = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus:
+        '<div class="bold">これより本番ブロックを開始します。' +
+        "もし自分にあてはまるなら「i」キーを" +
+        "自分に当てはまらない場合は「e」キーを" +
+        "なるべく早く，正確に押してください" +
+        "準備ができたらスペースキー</div>を押して課題を開始してください。</div>",
+      choices: [" "],
+      data: { task: "instruction" },
+    };
 
   const stimuli = ['楽しい', '明るい気分である', '疲れた', '元気だ', '幸せである', '面倒くさい', '生き生きしている', '何もしたくない', '気がかりなことがある', '悩んでいる']
   const E = ['話し好き', '無口な', '陽気な', '外向的', '暗い', '無愛想な', '社交的', '人嫌い', '活動的な', '意思表示しない', '積極的な', '地味な']
@@ -370,11 +391,11 @@ const pre_instruction1 = {
   const c_blocks = C.map((stim) => createTrial(stim))
   const a_blocks = A.map((stim) => createTrial(stim))
 
-  const e_trials = { timeline: jsPsych.randomization.shuffle(e_blocks) }
-  const n_trials = { timeline: jsPsych.randomization.shuffle(n_blocks) }
-  const o_trials = { timeline: jsPsych.randomization.shuffle(o_blocks) }
-  const c_trials = { timeline: jsPsych.randomization.shuffle(c_blocks) }
-  const a_trials = { timeline: jsPsych.randomization.shuffle(a_blocks) }
+    const e_trials = { timeline: jsPsych.randomization.shuffle(e_blocks) };
+    const n_trials = { timeline: jsPsych.randomization.shuffle(n_blocks) };
+    const o_trials = { timeline: jsPsych.randomization.shuffle(o_blocks) };
+    const c_trials = { timeline: jsPsych.randomization.shuffle(c_blocks) };
+    const a_trials = { timeline: jsPsych.randomization.shuffle(a_blocks) };
 
   const pre_trial = { timeline: jsPsych.randomization.shuffle(pre_blocks)}
   const main_trial = { timeline: [createInstruction(1), e_trials, createInstruction(2),n_trials, createInstruction(3), o_trials, createInstruction(4), c_trials, createInstruction(5), a_trials]}
